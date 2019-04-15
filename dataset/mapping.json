@@ -1,0 +1,132 @@
+{
+  "region": {
+    "Iringa": 0,
+    "Mara": 1,
+    "Manyara": 2,
+    "Mtwara": 3,
+    "Kagera": 4,
+    "Tanga": 5,
+    "Shinyanga": 6,
+    "Tabora": 7,
+    "Pwani": 8,
+    "Ruvuma": 9,
+    "Kilimanjaro": 10,
+    "Rukwa": 11,
+    "Mwanza": 12,
+    "Kigoma": 13,
+    "Lindi": 14,
+    "Dodoma": 15,
+    "Arusha": 16,
+    "Mbeya": 17,
+    "Singida": 18,
+    "Morogoro": 19,
+    "Dar es Salaam": 20
+  },
+  "basin": {
+    "Lake Nyasa": 0,
+    "Lake Victoria": 1,
+    "Pangani": 2,
+    "Ruvuma Southern Coast": 3,
+    "Internal": 4,
+    "Lake Tanganyika": 5,
+    "Wami Ruvu": 6,
+    "Rufiji": 7,
+    "Lake Rukwa": 8
+  },
+  "scheme_management": {
+    "VWC": 0,
+    "Other": 1,
+    "Private operator": 3,
+    "WUG": 4,
+    "Water Board": 5,
+    "WUA": 6,
+    "Water authority": 7,
+    "Company": 8,
+    "Parastatal": 9,
+    "Trust": 10,
+    "SWC": 11,
+    "None": 12
+  },
+  "extraction_type": {
+    "gravity": 0,
+    "submersible": 1,
+    "swn 80": 2,
+    "nira tanira": 3,
+    "india mark ii": 4,
+    "other": 5,
+    "ksb": 6,
+    "mono": 7,
+    "windmill": 8,
+    "afridev": 9,
+    "other - rope pump": 10,
+    "india mark iii": 11,
+    "other - swn 81": 12,
+    "other - play pump": 13,
+    "cemo": 14,
+    "climax": 15,
+    "walimi": 16,
+    "other - mkulima\/shinyanga": 17
+  },
+  "management_group": {
+    "user-group": 0,
+    "other": 1,
+    "commercial": 2,
+    "parastatal": 3,
+    "unknown": 4
+  },
+  "payment_type": {
+    "annually": 0,
+    "never pay": 1,
+    "per bucket": 2,
+    "unknown": 3,
+    "on failure": 4,
+    "other": 5,
+    "monthly": 6
+  },
+  "water_quality": {
+    "soft": 0,
+    "salty": 1,
+    "milky": 2,
+    "unknown": 3,
+    "fluoride": 4,
+    "coloured": 5,
+    "salty abandoned": 6,
+    "fluoride abandoned": 7
+  },
+  "quality_group": {
+    "good": 0,
+    "salty": 1,
+    "milky": 2,
+    "unknown": 3,
+    "fluoride": 4,
+    "colored": 5
+  },
+  "quantity": {
+    "enough": 0,
+    "insufficient": 1,
+    "dry": 2,
+    "seasonal": 3,
+    "unknown": 4
+  },
+  "source": {
+    "spring": 0,
+    "rainwater harvesting": 1,
+    "dam": 2,
+    "machine dbh": 3,
+    "other": 4,
+    "shallow well": 5,
+    "river": 6,
+    "hand dtw": 7,
+    "lake": 8,
+    "unknown": 9
+  },
+  "waterpoint_type": {
+    "communal standpipe": 0,
+    "communal standpipe multiple": 1,
+    "hand pump": 2,
+    "other": 3,
+    "improved spring": 4,
+    "cattle trough": 5,
+    "dam": 6
+  }
+}
