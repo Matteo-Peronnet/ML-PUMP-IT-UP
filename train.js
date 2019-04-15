@@ -1,3 +1,4 @@
+import * as tf from '@tensorflow/tfjs-node';
 import { RandomForestClassifier } from 'machinelearn/ensemble';
 import { preprocess, preprocessYTrue } from './data';
 import { accuracyScore } from 'machinelearn/metrics';
@@ -13,7 +14,7 @@ export const run = () => new Promise((resolve) => {
   const cls = new RandomForestClassifier({
     nEstimator: 100,
   });
-
+  console.log(trainData.y)
   cls.fit(trainData.X, trainData.y);
 
   const yPred = cls.predict(testData.X);

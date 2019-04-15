@@ -17,7 +17,8 @@ export function preprocess(dataset) {
     Object.keys(mapping)
         .filter((key) => key !== 'status_group')
         .map((key) => {
-        newRow[key] = row[key]
+        let value = (mapping[key][row[key]]);
+        newRow.push(value === undefined ? 1 : value)
     })
 
     X.push(newRow);
