@@ -7,7 +7,7 @@ import pumpItUpTest from './dataset/test.json';
 export const run = () => new Promise((resolve) => {
   console.log('RUNNING')
   const trainData = preprocess(pumpItUpTrain);
-
+  
   const testData = preprocess(pumpItUpTest);
 
   const cls = new RandomForestClassifier({
@@ -19,6 +19,6 @@ export const run = () => new Promise((resolve) => {
   const yPred = cls.predict(testData.X);
 
   console.log(yPred);
-  
+
   resolve();
 });

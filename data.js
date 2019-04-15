@@ -1,3 +1,5 @@
+import mapping from './dataset/mapping.json';
+
 
 export function preprocess(dataset) {
 
@@ -8,11 +10,15 @@ export function preprocess(dataset) {
   for (let i = 0; i < dataset.length; i++) {
     const row = dataset[i];
     // Handling the target data; nothing to preprocess, it should be either 0 or 1
-    y.push(row.status_group);
+    y.push(mapping["status_group"][row.status_group]);
 
     // Handle the training data
     const newRow = [];
-    
+    Object.keys(mapping)
+        .filter((key) => key !== 'status_group')
+        .map((key) => {
+        newRow[key] = row[key]
+    })
 
     X.push(newRow);
   }
