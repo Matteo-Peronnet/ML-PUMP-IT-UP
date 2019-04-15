@@ -25,5 +25,4 @@ export function preprocess(dataset) {
   }
 
   return { X, y };
-
 }
