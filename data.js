@@ -1,26 +1,46 @@
 import mapping from './dataset/mapping.json';
 
+export function dynamicLabels (dataset, labels) {
 
-export function preprocess(dataset) {
+  const maxValues = 100;
+  let labelsList = {};
+
+  labels.map((label) => {
+      labelsList[label] = {};
+      let datas = dataset.map((curr) => curr[label]);
+      const uniqDatas = [ ...new Set(datas) ];
+      if(uniqDatas.length < maxValues) {
+        labelsList[label].selfMapping = true;
+        labelsList[label].datas = uniqDatas.reduce((acc, curr) => {
+              acc[curr] = Object.keys(acc).length;
+              return acc;
+        }, {});
+      }
+  })
+  console.log(labelsList)
+  return labelsList;
+}
+
+
+export function preprocess(dataset, labels) {
 
   const X = [];
   const y = [];
-  // List of labels in a certain order. Training data must be preprocessed and appended in this order
-  const labels = ['id', 'amount_tsh', 'date_recorded', 'funder', 'gps_height', 'installer', 'longitude', 'latitude', 'wpt_name', 'num_private', 'basin', 'subvillage', 'region', 'region_code', 'district_code', 'lga', 'ward', 'population', 'public_meeting', 'recorded_by', 'scheme_management', 'scheme_name', 'permit', 'construction_year', 'extraction_type', 'extraction_type_group', 'extraction_type_class', 'management', 'management_group', 'payment', 'payment_type', 'water_quality', 'quality_group', 'quantity', 'quantity_group', 'source', 'source_type', 'source_class', 'waterpoint_type', 'waterpoint_type_group', 'status_group'];
+  
+
   for (let i = 0; i < dataset.length; i++) {
     const row = dataset[i];
     // Handling the target data; nothing to preprocess, it should be either 0 or 1
-    y.push(mapping["status_group"][row.status_group]);
-
+    y.push(labels["status_group"].datas[row.status_group]);
     // Handle the training data
     const newRow = [];
-    Object.keys(mapping)
+    Object.keys(labels)
         .filter((key) => key !== 'status_group')
         .map((key) => {
-        let value = (mapping[key][row[key]]);
-        newRow.push(value === undefined ? 1 : value)
+        if(labels[key].selfMapping) {
+            newRow.push(labels[key].datas[row[key]])
+        }
     })
-
     X.push(newRow);
   }
 
