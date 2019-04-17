@@ -5,7 +5,6 @@ import { accuracyScore } from 'machinelearn/metrics';
 import train from './dataset/train.json';
 import test from './dataset/test.json';
 import * as csvWriter from 'csv-writer';
-import mapping from './dataset/mapping.json';
 
 const writer = csvWriter.createObjectCsvWriter;
 

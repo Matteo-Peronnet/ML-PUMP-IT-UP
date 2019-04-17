@@ -1,4 +1,3 @@
-import mapping from './dataset/mapping.json';
 
 export function dynamicLabels (dataset, labels) {
 
