@@ -29,7 +29,7 @@ export const run = () => new Promise((resolve) => {
   const yPred = cls.predict(testData.X);
 
   const currWriter = writer({
-      path: 'fileTest.csv',
+      path: 'export.csv',
       header: [
           {id: 'id', title: 'id'},
           {id: 'status_group', title: 'status_group'}
