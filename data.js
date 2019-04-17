@@ -1,20 +1,16 @@
 
 export function dynamicLabels (dataset, labels) {
-
-  const maxValues = 30;
   let labelsList = {};
 
   labels.map((label) => {
       labelsList[label] = {};
       let datas = dataset.map((curr) => curr[label]);
       const uniqDatas = [ ...new Set(datas) ];
-      if(uniqDatas.length < maxValues) {
-        labelsList[label].selfMapping = true;
-        labelsList[label].datas = uniqDatas.reduce((acc, curr) => {
-              acc[curr] = Object.keys(acc).length;
-              return acc;
-        }, {});
-      }
+      labelsList[label].selfMapping = true;
+      labelsList[label].datas = uniqDatas.reduce((acc, curr) => {
+            acc[curr] = Object.keys(acc).length;
+            return acc;
+      }, {});
   })
   console.log(labelsList)
   return labelsList;

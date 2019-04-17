@@ -4,47 +4,24 @@ import { preprocess, dynamicLabels } from './data';
 import { accuracyScore } from 'machinelearn/metrics';
 import train from './dataset/train.json';
 import test from './dataset/test.json';
-import * as csvWriter from 'csv-writer';
-
-const writer = csvWriter.createObjectCsvWriter;
+import { exportCsvDataset, exportCsvPredict } from './export.js';
 
 export const run = () => new Promise((resolve) => {
 
-  console.log('RUNNING')
+  let features = ['region', 'basin', 'scheme_management', 'extraction_type', 'management_group', 'payment_type', 'water_quality', 'quality_group', 'quantity', 'source', 'waterpoint_type', 'ward']
+  let allFeatures = features.concat('status_group');
 
-  const labels = ['status_group', 'region', 'basin', 'scheme_management', 'extraction_type', 'management_group', 'payment_type', 'water_quality', 'quality_group', 'quantity', 'source', 'waterpoint_type']
   const dataset = train.concat(test);
-  const labelsGenerated = dynamicLabels(dataset, labels);
+  const labelsGenerated = dynamicLabels(dataset, allFeatures);
 
 
   const trainData = preprocess(train, labelsGenerated);
   const testData = preprocess(test, labelsGenerated);
+  
+  /** EXPORT **/
+  exportCsvDataset(trainData.X, features, 'train-formated-X');
+  exportCsvDataset(testData.X, features, 'test-formated-X');
+  exportCsvPredict(trainData.y, ['predict'],'train-formated-y');
 
-  const cls = new RandomForestClassifier({
-    nEstimator: 10,
-  });
-
-  cls.fit(trainData.X, trainData.y);
-
-  const yPred = cls.predict(testData.X);
-
-  const currWriter = writer({
-      path: 'fileTest.csv',
-      header: [
-          {id: 'id', title: 'id'},
-          {id: 'status_group', title: 'status_group'}
-      ]
-  });
-
-  const records = yPred.map((pred, index) => ({
-    id: test[index].id,
-    status_group: pred
-  }))
-
-  currWriter.writeRecords(records)
-    .then(() => {
-        console.log('...Done');
-  });
- 
   resolve();
 });
