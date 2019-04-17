@@ -1,7 +1,7 @@
 
 export function dynamicLabels (dataset, labels) {
 
-  const maxValues = 100;
+  const maxValues = 30;
   let labelsList = {};
 
   labels.map((label) => {
