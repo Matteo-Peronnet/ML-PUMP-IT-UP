@@ -15,7 +15,7 @@
     "csv-writer": "^1.2.0",
     "csvtojson": "^2.0.8",
     "machinelearn": "^2.0.0",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
