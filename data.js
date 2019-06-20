@@ -1,22 +1,31 @@
 
+export function normalize(labels, value) {
+  return  2 * ((value - labels.moy) / (labels.max - labels.min))
+}
+
+
 export function dynamicLabels (dataset, labels) {
 
-  const maxValues = 30;
   let labelsList = {};
 
   labels.map((label) => {
       labelsList[label] = {};
       let datas = dataset.map((curr) => curr[label]);
       const uniqDatas = [ ...new Set(datas) ];
-      if(uniqDatas.length < maxValues) {
-        labelsList[label].selfMapping = true;
-        labelsList[label].datas = uniqDatas.reduce((acc, curr) => {
-              acc[curr] = Object.keys(acc).length;
-              return acc;
-        }, {});
-      }
+      labelsList[label].selfMapping = true;
+      labelsList[label].datas = uniqDatas.reduce((acc, curr) => {
+            acc[curr] = {}
+            acc[curr].value = Object.keys(acc).length;
+            return acc;
+      }, {});
+     const sortedValues = Object.keys(labelsList[label].datas)
+      .sort((a, b) => labelsList[label].datas[a].value - labelsList[label].datas[b].value);
+
+     labelsList[label].min = labelsList[label].datas[sortedValues[0]].value
+     labelsList[label].max = labelsList[label].datas[sortedValues[sortedValues.length - 1]].value
+     labelsList[label].moy = (labelsList[label].min + labelsList[label].max) / 2
   })
-  console.log(labelsList)
+
   return labelsList;
 }
 
@@ -44,4 +53,38 @@ export function preprocess(dataset, labels) {
   }
 
   return { X, y };
+}
+
+export function preprocess2(dataset, labels, withGroup) {
+
+  const data = [];
+  const labelValues = Object.keys(labels);
+  const labelWithoutGroup = labelValues.filter((key) => key !== 'status_group')
+
+  const processLabels = withGroup ? labelValues : labelWithoutGroup;
+
+  for (let i = 0; i < dataset.length; i++) {
+    const row = dataset[i];
+    // Handling the target data; nothing to preprocess, it should be either 0 or 1
+    // Handle the training data
+    let newRow = {};
+
+    processLabels
+        .map((key) => {
+        if(labels[key].selfMapping) {
+            if(key === 'status_group') {
+              newRow[key] = labels[key].datas[row[key]].value
+            } else {
+              newRow[key] = normalize(labels[key], labels[key].datas[row[key]].value)
+            }
+            
+        }
+        
+    })
+    //newRow.output = labels["status_group"].datas[row.status_group].value
+    data.push(newRow);
+  }
+  
+
+  return { data, labels: processLabels };
 }
